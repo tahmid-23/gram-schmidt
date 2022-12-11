@@ -5,7 +5,7 @@ interface TupleVectorProps {
 }
 
 const TupleVector: FC<TupleVectorProps> = ({ vector }) => {
-  if (!vector.length) {
+  if (vector.length === 0) {
     return null;
   }
 

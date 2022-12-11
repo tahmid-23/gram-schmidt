@@ -37,13 +37,21 @@ const dotProduct = (a: number[], b: number[]) => {
 const App = () => {
   const [resultData, setResultData] = useState<CalculationResultProps>();
 
-  const onCalculate = (vectorType: VectorType, vectors: string[]) => {
+  const onCalculate = (
+    vectorType: VectorType,
+    orthonormalize: boolean,
+    vectors: string[]
+  ) => {
     switch (vectorType) {
       case VectorType.REGULAR: {
         const mappedVectors = parseTuples(vectors);
         setResultData({
           vectorType: vectorType,
-          vectors: gramSchmidtRegular(mappedVectors, dotProduct),
+          vectors: gramSchmidtRegular(
+            mappedVectors,
+            orthonormalize,
+            dotProduct
+          ),
         });
 
         break;

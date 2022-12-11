@@ -2,50 +2,64 @@ import InnerProduct, { norm } from './inner-product';
 
 const EPSILON = 1e-10;
 
-function normalize(
-  innerProduct: InnerProduct<number[]>,
-  vector: number[]
-): number[] | undefined {
-  const vectorNorm = norm(innerProduct, vector);
-
-  if (vectorNorm < EPSILON) {
-    return undefined;
-  }
-
-  return vector.map((component) => {
-    return component / vectorNorm;
-  });
-}
-
-export function gramSchmidtRegular(
-  vectors: number[][],
-  innerProduct: InnerProduct<number[]>
-): number[][] {
-  vectors = vectors.filter((vector) =>
-    vector.some((component) => component !== 0)
-  );
-  if (!vectors.length) {
+export function gramSchmidt<T>(
+  vectors: T[],
+  orthonormalize: boolean,
+  innerProduct: InnerProduct<T>,
+  reduce: (vector: T) => T,
+  add: (vectorA: T, vectorB: T) => T,
+  multiply: (vector: T, factor: number) => T
+): T[] {
+  vectors = vectors
+    .map(reduce)
+    .filter((vector) => norm(innerProduct, vector) !== 0);
+  if (vectors.length === 0) {
     return [];
   }
 
-  const result = [normalize(innerProduct, vectors[0])!];
-  for (let i = 1; i < vectors.length; ++i) {
-    let nextVector = vectors[i];
-    for (const vector of result) {
-      const projection = innerProduct(vector, vectors[i]);
-      const delta = vector.map((component) => {
-        return (component *= projection);
-      });
-      nextVector = nextVector.map((component, index) => {
-        return component - delta[index];
-      });
+  let result = [];
+  for (const initialVector of vectors) {
+    let resultVector = initialVector;
+    for (const orthogonalVector of result) {
+      const projection =
+        innerProduct(orthogonalVector, initialVector) /
+        innerProduct(orthogonalVector, orthogonalVector);
+      const delta = multiply(orthogonalVector, -projection);
+      resultVector = add(resultVector, delta);
     }
 
-    const resultVector = normalize(innerProduct, nextVector);
-    if (resultVector) {
+    resultVector = reduce(resultVector);
+    const vectorNorm = norm(innerProduct, resultVector);
+    if (vectorNorm !== 0) {
+      if (orthonormalize) {
+        resultVector = multiply(resultVector, 1 / vectorNorm);
+      }
+
       result.push(resultVector);
     }
   }
 
   return result;
+}
+
+export function gramSchmidtRegular(
+  vectors: number[][],
+  orthonormalize: boolean,
+  innerProduct: InnerProduct<number[]>
+): number[][] {
+  return gramSchmidt(
+    vectors,
+    orthonormalize,
+    innerProduct,
+    (vector) =>
+      vector.map((component) =>
+        Math.abs(component) < EPSILON ? 0 : component
+      ),
+    (a, b) => {
+      return a.map((component, index) => component + b[index]);
+    },
+    (vector, factor) => {
+      return vector.map((component) => component * factor);
+    }
+  );
 }

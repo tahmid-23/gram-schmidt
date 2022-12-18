@@ -1,5 +1,5 @@
 import { Children, FC, ReactFragment } from 'react';
-import VectorType from '../../vector/vector-type';
+import VectorType from '../../../vector/vector-type';
 import PolynomialVector from '../PolynomialVector/PolynomialVector';
 import TupleVector from '../TupleVector/TupleVector';
 

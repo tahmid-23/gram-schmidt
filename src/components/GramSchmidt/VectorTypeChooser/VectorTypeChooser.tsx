@@ -1,11 +1,17 @@
-import { FC } from 'react';
-import VectorType from '../../vector/vector-type';
+import { ChangeEvent, FC } from 'react';
+import VectorType from '../../../vector/vector-type';
 
 interface VectorTypeChooserProps {
   onChange?: (vectorType: VectorType) => void;
 }
 
 const VectorTypeChooser: FC<VectorTypeChooserProps> = ({ onChange }) => {
+  const onSetVectorType = (e: ChangeEvent<HTMLSelectElement>) => {
+    const vectorType =
+      VectorType[e.currentTarget.value as keyof typeof VectorType];
+    onChange!(vectorType);
+  };
+
   return (
     <>
       <label htmlFor="id">Vector Type:</label>
@@ -13,14 +19,7 @@ const VectorTypeChooser: FC<VectorTypeChooserProps> = ({ onChange }) => {
       <select
         id="vector-type"
         title="Vector Type"
-        onChange={
-          onChange &&
-          ((e) => {
-            const vectorType =
-              VectorType[e.currentTarget.value as keyof typeof VectorType];
-            onChange(vectorType);
-          })
-        }
+        onChange={onChange && onSetVectorType}
       >
         <option value={VectorType.REGULAR}>Regular</option>
         <option value={VectorType.POLYNOMIAL}>Polynomial</option>

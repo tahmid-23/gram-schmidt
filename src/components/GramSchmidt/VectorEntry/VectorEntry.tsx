@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import VectorType from '../../vector/vector-type';
+import { ChangeEvent, FC } from 'react';
+import VectorType from '../../../vector/vector-type';
 
 interface VectorInputProps {
   vectorType: VectorType;
@@ -12,6 +12,10 @@ const VectorInput: FC<VectorInputProps> = ({
   onChange,
   onDelete,
 }) => {
+  const onVectorChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange!(e.currentTarget.value);
+  };
+
   const getPatternTitle = () => {
     switch (vectorType) {
       case VectorType.REGULAR: {
@@ -26,7 +30,7 @@ const VectorInput: FC<VectorInputProps> = ({
   const getPattern = () => {
     switch (vectorType) {
       case VectorType.REGULAR: {
-        return '(\\s*-?\\d+(\\.\\d+)?)(\\s*,\\s*-?\\d+(\\.\\d+)?)*';
+        return '-?(\\d+(\\.)?\\d*|\\.\\d+)(\\s*,\\s*-?(\\d+(\\.)?\\d*|\\.\\d+))*';
       }
       case VectorType.POLYNOMIAL: {
         return '.*';
@@ -41,12 +45,7 @@ const VectorInput: FC<VectorInputProps> = ({
         type="text"
         pattern={getPattern()}
         required
-        onChange={
-          onChange &&
-          ((e) => {
-            onChange(e.currentTarget.value);
-          })
-        }
+        onChange={onChange && onVectorChanged}
       />
       &nbsp;
       <button type="button" onClick={onDelete}>

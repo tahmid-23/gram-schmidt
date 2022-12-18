@@ -1,7 +1,7 @@
 import { Children, FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import VectorType from '../../vector/vector-type';
+import VectorType from '../../../vector/vector-type';
 import VectorInput from '../VectorEntry/VectorEntry';
 
 interface VectorListProps {

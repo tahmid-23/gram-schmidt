@@ -19,7 +19,7 @@ interface VectorFormProps {
 
 const weightedDotProduct = (factor: number, a: number[], b: number[]) => {
   return a.reduce((accumulator, component, index) => {
-    return accumulator + component * b[index];
+    return accumulator + factor * component * b[index];
   }, 0);
 };
 

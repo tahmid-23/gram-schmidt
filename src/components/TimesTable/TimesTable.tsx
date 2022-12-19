@@ -1,6 +1,7 @@
-import { FormEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 import Header from '../Header/Header';
+import QuickNavigation from '../QuickNavigation/QuickNavigation';
 import TableVisual from './TableVisual/TableVisual';
 import TimesTableForm from './TimesTableForm/TimesTableForm';
 
@@ -26,6 +27,7 @@ const TimesTable = () => {
           <TableVisual minNumber={tableBounds[0]} maxNumber={tableBounds[1]} />
         </>
       )}
+      <QuickNavigation />
     </>
   );
 };

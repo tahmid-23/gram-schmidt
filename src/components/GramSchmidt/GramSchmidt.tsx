@@ -8,6 +8,7 @@ import CalculationResult, {
 import VectorForm from './VectorForm/VectorForm';
 import InnerProduct from '../../vector/inner-product';
 import { useTitle } from '../../hooks/useTitle';
+import QuickNavigation from '../QuickNavigation/QuickNavigation';
 
 function parseTuples(vectors: string[]) {
   const mappedVectors: number[][] = [];
@@ -22,7 +23,7 @@ function parseTuples(vectors: string[]) {
   }
 
   for (const vector of mappedVectors) {
-    if (vector.length < dimension) {
+    while (vector.length < dimension) {
       vector.push(0);
     }
   }
@@ -66,6 +67,7 @@ const GramSchmidt = () => {
       <Header title="Gram-Schmidt Calculator" />
       <VectorForm onCalculate={onCalculate} />
       {resultData && <CalculationResult {...resultData} />}
+      <QuickNavigation />
     </>
   );
 };

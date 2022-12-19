@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useId, useState } from 'react';
 import BoundInput from '../BoundInput/BoundInput';
 
 interface BoundChooserProps {
@@ -16,6 +16,8 @@ const BoundChooser: FC<BoundChooserProps> = ({
 }) => {
   const [minNumber, setMinNumber] = useState<number>(defaultMin);
   const [maxNumber, setMaxNumber] = useState<number>(defaultMax);
+  const minNumberId = useId(),
+    maxNumberId = useId();
 
   const onChangeMinBound = useCallback(
     (newMinNumber: number) => {
@@ -37,7 +39,7 @@ const BoundChooser: FC<BoundChooserProps> = ({
     <>
       <div>
         <BoundInput
-          id="min-number"
+          id={minNumberId}
           min={1}
           max={maxNumber}
           defaultBound={minNumber}
@@ -47,7 +49,7 @@ const BoundChooser: FC<BoundChooserProps> = ({
       </div>
       <div>
         <BoundInput
-          id="max-number"
+          id={maxNumberId}
           min={minNumber}
           defaultBound={maxNumber}
           text="Max Number:"

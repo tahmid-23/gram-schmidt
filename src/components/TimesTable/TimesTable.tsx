@@ -2,7 +2,8 @@ import { ReactNode, useCallback, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 import Header from '../Header/Header';
 import QuickNavigation from '../QuickNavigation/QuickNavigation';
-import TableVisual from './TableVisual/TableVisual';
+import QuizGame from './QuizGame/QuizGame';
+import StudyTableVisual from './StudyTableVisual/StudyTableVisual';
 import TimesTableForm from './TimesTableForm/TimesTableForm';
 
 enum Mode {
@@ -35,11 +36,13 @@ const TimesTable = () => {
     let content: ReactNode;
     switch (mode) {
       case Mode.TABLE: {
-        content = <TableVisual minNumber={bounds[0]} maxNumber={bounds[1]} />;
+        content = (
+          <StudyTableVisual minNumber={bounds[0]} maxNumber={bounds[1]} />
+        );
         break;
       }
       case Mode.GAME: {
-        content = null;
+        content = <QuizGame minNumber={bounds[0]} maxNumber={bounds[1]} />;
         break;
       }
     }
@@ -48,7 +51,7 @@ const TimesTable = () => {
       return (
         <>
           &nbsp;
-          {content}
+          <div>{content}</div>
         </>
       );
     }

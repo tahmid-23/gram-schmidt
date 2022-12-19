@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, useCallback, useId } from 'react';
 import { FC, ReactNode, useState } from 'react';
 
 export interface InnerProductEntry {
@@ -15,6 +15,7 @@ const InnerProductChooser: FC<InnerProductChooserProps> = ({
   nameIPRecord,
 }) => {
   const [innerProductName, setInnerProductName] = useState<string>();
+  const innerProductId = useId();
 
   const onInnerProductNameChosen = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
@@ -27,7 +28,7 @@ const InnerProductChooser: FC<InnerProductChooserProps> = ({
   return (
     <>
       <select
-        id="inner-product"
+        id={innerProductId}
         title="Inner Product"
         onChange={onInnerProductNameChosen}
       >

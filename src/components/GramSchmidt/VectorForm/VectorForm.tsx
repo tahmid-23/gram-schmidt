@@ -1,4 +1,4 @@
-import { FC, FormEvent, useCallback, useState } from 'react';
+import { FC, FormEvent, useCallback, useId, useState } from 'react';
 import InnerProduct from '../../../vector/inner-product';
 import VectorType from '../../../vector/vector-type';
 import InnerProductChooser, {
@@ -32,6 +32,7 @@ const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
     () => dotProduct as InnerProduct<unknown>
   );
   const [vectors, setVectors] = useState<string[]>([]);
+  const orthonormalizeId = useId();
 
   const onSubmitForm = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -67,9 +68,9 @@ const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
           &nbsp;
           <InnerProductChooser nameIPRecord={nameIPRecord} />
           &nbsp;
-          <label htmlFor="orthonormalize">Orthonormalize</label>
+          <label htmlFor={orthonormalizeId}>Orthonormalize</label>
           <input
-            id="orthonormalize"
+            id={orthonormalizeId}
             className={styles.checkbox}
             type="checkbox"
             defaultChecked

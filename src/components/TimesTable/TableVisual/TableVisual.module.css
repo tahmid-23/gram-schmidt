@@ -18,11 +18,3 @@ th {
   width: 80%;
   table-layout: fixed;
 }
-
-.highlightLight {
-  background-color: lightgray;
-}
-
-.highlightDark {
-  background-color: gray;
-}

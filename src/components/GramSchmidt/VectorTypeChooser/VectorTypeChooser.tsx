@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, FC, useCallback, useId } from 'react';
 import VectorType from '../../../vector/vector-type';
 
 interface VectorTypeChooserProps {
@@ -6,6 +6,8 @@ interface VectorTypeChooserProps {
 }
 
 const VectorTypeChooser: FC<VectorTypeChooserProps> = ({ onChange }) => {
+  const vectorTypeId = useId();
+
   const onSetVectorType = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       const vectorType =
@@ -17,10 +19,10 @@ const VectorTypeChooser: FC<VectorTypeChooserProps> = ({ onChange }) => {
 
   return (
     <>
-      <label htmlFor="id">Vector Type:</label>
+      <label htmlFor={vectorTypeId}>Vector Type:</label>
       &nbsp;
       <select
-        id="vector-type"
+        id={vectorTypeId}
         title="Vector Type"
         onChange={onChange && onSetVectorType}
       >

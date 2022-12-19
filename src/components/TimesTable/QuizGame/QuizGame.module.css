@@ -1,0 +1,11 @@
+.question {
+  margin: 0;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}

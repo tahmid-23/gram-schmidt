@@ -3,9 +3,13 @@ import BoundChooser from '../BoundChooser/BoundChooser';
 
 interface TimesTableFormProps {
   onGenerateTable?: (minNumber: number, maxNumber: number) => void;
+  onPlayGame?: (minNumber: number, maxNumber: number) => void;
 }
 
-const TimesTableForm: FC<TimesTableFormProps> = ({ onGenerateTable }) => {
+const TimesTableForm: FC<TimesTableFormProps> = ({
+  onGenerateTable,
+  onPlayGame,
+}) => {
   const [minNumber, setMinNumber] = useState<number>(1);
   const [maxNumber, setMaxNumber] = useState<number>(12);
 
@@ -25,9 +29,13 @@ const TimesTableForm: FC<TimesTableFormProps> = ({ onGenerateTable }) => {
           onGenerateTable?.(minNumber, maxNumber);
           break;
         }
+        case 'play-game': {
+          onPlayGame?.(minNumber, maxNumber);
+          break;
+        }
       }
     },
-    [onGenerateTable, minNumber, maxNumber]
+    [onGenerateTable, onPlayGame, minNumber, maxNumber]
   );
 
   return (
@@ -41,6 +49,10 @@ const TimesTableForm: FC<TimesTableFormProps> = ({ onGenerateTable }) => {
         />
         <button type="submit" name="generate-table">
           Generate Table
+        </button>
+        &nbsp;
+        <button type="submit" name="play-game">
+          Play Game
         </button>
       </form>
     </>

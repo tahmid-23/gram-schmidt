@@ -7,9 +7,12 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ title }) => {
   return (
-    <header>
-      <h1 className={styles.title}>{title}</h1>
-    </header>
+    <>
+      <header>
+        <h1 className={styles.title}>{title}</h1>
+      </header>
+      <hr className={styles.separator} />
+    </>
   );
 };
 

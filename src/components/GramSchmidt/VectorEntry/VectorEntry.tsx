@@ -51,7 +51,7 @@ const VectorInput: FC<VectorInputProps> = ({
         onChange={onChange && onVectorChanged}
       />
       &nbsp;
-      <button type="button" onClick={onDelete}>
+      <button type="reset" onClick={onDelete}>
         Delete
       </button>
     </li>

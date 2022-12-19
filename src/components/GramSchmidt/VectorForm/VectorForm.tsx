@@ -64,6 +64,7 @@ const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
       <form onSubmit={onSubmitForm}>
         <div>
           <VectorTypeChooser onChange={setVectorType} />
+          &nbsp;
           <InnerProductChooser nameIPRecord={nameIPRecord} />
           &nbsp;
           <label htmlFor="orthonormalize">Orthonormalize</label>

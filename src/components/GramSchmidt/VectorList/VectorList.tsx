@@ -1,4 +1,4 @@
-import { Children, FC } from 'react';
+import { Children, FC, useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import VectorType from '../../../vector/vector-type';
@@ -16,13 +16,16 @@ const VectorList: FC<VectorListProps> = ({ vectorType, onChange }) => {
     onChange?.(vectors);
   }, [onChange, vectors]);
 
-  const eraseVector = (index: number) => {
-    const newVectors = [...vectors];
-    newVectors.splice(index, 1);
-    setVectors(newVectors);
-  };
+  const eraseVector = useCallback(
+    (index: number) => {
+      const newVectors = [...vectors];
+      newVectors.splice(index, 1);
+      setVectors(newVectors);
+    },
+    [vectors]
+  );
 
-  const mapVectors = () => {
+  const mapVectors = useCallback(() => {
     return Children.map(vectors, (_vector, index) => (
       <VectorInput
         key={index}
@@ -35,11 +38,11 @@ const VectorList: FC<VectorListProps> = ({ vectorType, onChange }) => {
         }}
       />
     ));
-  };
+  }, [eraseVector, vectorType, vectors]);
 
-  const addVector = () => {
+  const addVector = useCallback(() => {
     setVectors(vectors.concat(''));
-  };
+  }, [vectors]);
 
   return (
     <>

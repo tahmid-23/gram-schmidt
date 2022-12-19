@@ -1,0 +1,20 @@
+.timesTable,
+.timesTable td,
+.timesTable th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.timesTable td,
+th {
+  padding: 0.2vh 0.2vw;
+}
+
+.timesTable td {
+  text-align: right;
+}
+
+.timesTable {
+  width: 80%;
+  table-layout: fixed;
+}

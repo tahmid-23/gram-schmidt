@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import { FC, ReactNode, useState } from 'react';
 
 export interface InnerProductEntry {
@@ -16,10 +16,13 @@ const InnerProductChooser: FC<InnerProductChooserProps> = ({
 }) => {
   const [innerProductName, setInnerProductName] = useState<string>();
 
-  const onInnerProductNameChosen = (e: ChangeEvent<HTMLSelectElement>) => {
-    setInnerProductName(e.currentTarget.value);
-    nameIPRecord[e.currentTarget.value]?.onSelect?.();
-  };
+  const onInnerProductNameChosen = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      setInnerProductName(e.currentTarget.value);
+      nameIPRecord[e.currentTarget.value]?.onSelect?.();
+    },
+    [nameIPRecord]
+  );
 
   return (
     <>

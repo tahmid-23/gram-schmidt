@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useCallback, useState } from 'react';
 import InnerProduct from '../../../vector/inner-product';
 import VectorType from '../../../vector/vector-type';
 import InnerProductChooser, {
@@ -33,10 +33,13 @@ const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
   );
   const [vectors, setVectors] = useState<string[]>([]);
 
-  const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onCalculate?.(vectorType, orthonormalize, innerProduct, vectors);
-  };
+  const onSubmitForm = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      onCalculate?.(vectorType, orthonormalize, innerProduct, vectors);
+    },
+    [innerProduct, onCalculate, orthonormalize, vectorType, vectors]
+  );
 
   let nameIPRecord: Record<string, InnerProductEntry>;
   switch (vectorType) {

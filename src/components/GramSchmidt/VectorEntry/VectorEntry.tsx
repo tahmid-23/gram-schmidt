@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useCallback } from 'react';
 import VectorType from '../../../vector/vector-type';
 
 interface VectorInputProps {
@@ -12,11 +12,14 @@ const VectorInput: FC<VectorInputProps> = ({
   onChange,
   onDelete,
 }) => {
-  const onVectorChanged = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange!(e.currentTarget.value);
-  };
+  const onVectorChanged = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange!(e.currentTarget.value);
+    },
+    [onChange]
+  );
 
-  const getPatternTitle = () => {
+  const getPatternTitle = useCallback(() => {
     switch (vectorType) {
       case VectorType.REGULAR: {
         return 'Comma-separated list of numbers';
@@ -25,9 +28,9 @@ const VectorInput: FC<VectorInputProps> = ({
         return 'Function expression';
       }
     }
-  };
+  }, [vectorType]);
 
-  const getPattern = () => {
+  const getPattern = useCallback(() => {
     switch (vectorType) {
       case VectorType.REGULAR: {
         return '-?(\\d+(\\.)?\\d*|\\.\\d+)(\\s*,\\s*-?(\\d+(\\.)?\\d*|\\.\\d+))*';
@@ -36,7 +39,7 @@ const VectorInput: FC<VectorInputProps> = ({
         return '.*';
       }
     }
-  };
+  }, [vectorType]);
 
   return (
     <li>

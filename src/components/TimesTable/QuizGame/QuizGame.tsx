@@ -10,12 +10,8 @@ export interface QuizGameProps {
   onAnswer?: (coordinate: Coordinate, correct: boolean) => void;
 }
 
-function generateNumber(min: number, max: number, learnBound: number) {
-  return (
-    Math.floor(Math.random() * (max - learnBound - min - learnBound + 1)) +
-    min +
-    learnBound
-  );
+function generateNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const QuizGame = ({
@@ -29,10 +25,12 @@ const QuizGame = ({
       return undefined;
     }
 
-    return [
-      generateNumber(minNumber, maxNumber, learnBound),
-      generateNumber(minNumber, maxNumber, learnBound),
-    ];
+    const first = generateNumber(minNumber, maxNumber);
+    const second = generateNumber(
+      first <= learnBound ? learnBound + 1 : minNumber,
+      maxNumber
+    );
+    return [first, second];
   }, [learnBound, maxNumber, minNumber]);
 
   const [question, refreshQuestion] = useGenerator(generateQuestion);

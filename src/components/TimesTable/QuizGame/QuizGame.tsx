@@ -1,16 +1,9 @@
-import {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  useCallback,
-  useId,
-  useState,
-} from 'react';
+import { ChangeEvent, FormEvent, useCallback, useId, useState } from 'react';
 import { useGenerator } from '../../../hooks/useGenerator';
-import { Coordinate } from '../../../types/Coordinate';
+import { Coordinate } from '../../../types/coordinate';
 import styles from './QuizGame.module.css';
 
-interface QuizGameProps {
+export interface QuizGameProps {
   minNumber: number;
   maxNumber: number;
   onAnswer?: (coordinate: Coordinate, correct: boolean) => void;
@@ -20,7 +13,7 @@ function generateNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const QuizGame: FC<QuizGameProps> = ({ minNumber, maxNumber, onAnswer }) => {
+const QuizGame = ({ minNumber, maxNumber, onAnswer }: QuizGameProps) => {
   const generateQuestion = useCallback(
     () => [
       generateNumber(minNumber, maxNumber),

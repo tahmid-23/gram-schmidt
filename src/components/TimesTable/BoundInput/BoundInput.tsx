@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 
-interface BoundInputProps {
+export interface BoundInputProps {
   id: string;
   min?: number;
   max?: number;
@@ -9,14 +9,14 @@ interface BoundInputProps {
   onBoundChange: (newBound: number) => void;
 }
 
-const BoundInput: FC<BoundInputProps> = ({
+const BoundInput = ({
   id,
   min,
   max,
   defaultBound,
   text,
   onBoundChange,
-}) => {
+}: BoundInputProps) => {
   const onInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       onBoundChange(Number(e.currentTarget.value));

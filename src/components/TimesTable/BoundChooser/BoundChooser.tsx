@@ -1,19 +1,19 @@
-import { FC, useCallback, useId, useState } from 'react';
+import { useCallback, useId, useState } from 'react';
 import BoundInput from '../BoundInput/BoundInput';
 
-interface BoundChooserProps {
+export interface BoundChooserProps {
   defaultMin: number;
   defaultMax: number;
   onSetMinNumber?: (minNumber: number) => void;
   onSetMaxNumber?: (maxNumber: number) => void;
 }
 
-const BoundChooser: FC<BoundChooserProps> = ({
+const BoundChooser = ({
   defaultMin,
   defaultMax,
   onSetMinNumber,
   onSetMaxNumber,
-}) => {
+}: BoundChooserProps) => {
   const [minNumber, setMinNumber] = useState(defaultMin);
   const [maxNumber, setMaxNumber] = useState(defaultMax);
   const minNumberId = useId(),

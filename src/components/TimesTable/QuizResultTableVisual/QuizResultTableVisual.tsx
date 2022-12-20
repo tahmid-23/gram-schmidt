@@ -1,18 +1,18 @@
-import { CSSProperties, FC, useCallback, useEffect, useState } from 'react';
-import { Coordinate } from '../../../types/Coordinate';
+import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import { Coordinate } from '../../../types/coordinate';
 import TableVisual from '../TableVisual/TableVisual';
 
-interface QuizResultTableVisualProps {
+export interface QuizResultTableVisualProps {
   minNumber: number;
   maxNumber: number;
   results: number[][];
 }
 
-const QuizResultTableVisual: FC<QuizResultTableVisualProps> = ({
+const QuizResultTableVisual = ({
   minNumber,
   maxNumber,
   results,
-}) => {
+}: QuizResultTableVisualProps) => {
   const [accuracyBounds, setAccuracyBounds] = useState<[number, number]>();
 
   useEffect(() => {

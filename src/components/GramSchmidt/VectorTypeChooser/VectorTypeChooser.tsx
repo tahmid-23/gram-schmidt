@@ -1,11 +1,11 @@
-import { ChangeEvent, FC, useCallback, useId } from 'react';
+import { ChangeEvent, useCallback, useId } from 'react';
 import VectorType from '../../../vector/vector-type';
 
-interface VectorTypeChooserProps {
+export interface VectorTypeChooserProps {
   onChange?: (vectorType: VectorType) => void;
 }
 
-const VectorTypeChooser: FC<VectorTypeChooserProps> = ({ onChange }) => {
+const VectorTypeChooser = ({ onChange }: VectorTypeChooserProps) => {
   const vectorTypeId = useId();
 
   const onSetVectorType = useCallback(

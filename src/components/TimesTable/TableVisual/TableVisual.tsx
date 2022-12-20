@@ -1,8 +1,8 @@
-import { CSSProperties, FC } from 'react';
-import { Coordinate } from '../../../types/Coordinate';
+import { CSSProperties } from 'react';
+import { Coordinate } from '../../../types/coordinate';
 import styles from './TableVisual.module.css';
 
-interface TableVisualProps {
+export interface TableVisualProps {
   minNumber: number;
   maxNumber: number;
   onExitTable?: () => void;
@@ -12,7 +12,7 @@ interface TableVisualProps {
   onMouseOver?: (coordinate: Coordinate) => void;
 }
 
-const TableVisual: FC<TableVisualProps> = ({
+const TableVisual = ({
   minNumber,
   maxNumber,
   onExitTable,
@@ -20,7 +20,7 @@ const TableVisual: FC<TableVisualProps> = ({
   getCellStyle,
   onMouseDown,
   onMouseOver,
-}) => {
+}: TableVisualProps) => {
   const range = Array.from(
     { length: maxNumber - minNumber + 1 },
     (_v, k) => k + minNumber

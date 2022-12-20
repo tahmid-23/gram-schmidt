@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useId } from 'react';
-import { FC, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 export interface InnerProductEntry {
   name: string;
@@ -11,9 +11,7 @@ interface InnerProductChooserProps {
   nameIPRecord: Record<string, InnerProductEntry>;
 }
 
-const InnerProductChooser: FC<InnerProductChooserProps> = ({
-  nameIPRecord,
-}) => {
+const InnerProductChooser = ({ nameIPRecord }: InnerProductChooserProps) => {
   const [innerProductName, setInnerProductName] = useState<string>();
   const innerProductId = useId();
 

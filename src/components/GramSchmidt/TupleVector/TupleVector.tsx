@@ -1,10 +1,8 @@
-import { FC } from 'react';
-
-interface TupleVectorProps {
+export interface TupleVectorProps {
   vector: number[];
 }
 
-const TupleVector: FC<TupleVectorProps> = ({ vector }) => {
+const TupleVector = ({ vector }: TupleVectorProps) => {
   if (vector.length === 0) {
     return null;
   }

@@ -1,17 +1,14 @@
-import { FC, useCallback, useState } from 'react';
-import { Coordinate } from '../../../types/Coordinate';
+import { useCallback, useState } from 'react';
+import { Coordinate } from '../../../types/coordinate';
 import TableVisual from '../TableVisual/TableVisual';
 import styles from './StudyTableVisual.module.css';
 
-interface StudyTableVisualProps {
+export interface StudyTableVisualProps {
   minNumber: number;
   maxNumber: number;
 }
 
-const StudyTableVisual: FC<StudyTableVisualProps> = ({
-  minNumber,
-  maxNumber,
-}) => {
+const StudyTableVisual = ({ minNumber, maxNumber }: StudyTableVisualProps) => {
   const [highlightCoordinate, setHighlightCoordinate] = useState<Coordinate>();
   const [isFrozen, setIsFrozen] = useState(false);
 

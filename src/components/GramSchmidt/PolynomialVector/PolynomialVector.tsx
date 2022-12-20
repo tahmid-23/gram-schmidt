@@ -1,10 +1,8 @@
-import { FC } from 'react';
-
-interface PolynomialVectorProps {
+export interface PolynomialVectorProps {
   vector: string;
 }
 
-const PolynomialVector: FC<PolynomialVectorProps> = ({ vector }) => {
+const PolynomialVector = ({ vector }: PolynomialVectorProps) => {
   return <>{vector}</>;
 };
 

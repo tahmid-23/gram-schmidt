@@ -1,4 +1,4 @@
-import { FC, FormEvent, useCallback, useEffect, useId, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
 import InnerProduct from '../../../vector/inner-product';
 import VectorType from '../../../vector/vector-type';
 import InnerProductChooser, {
@@ -8,7 +8,7 @@ import VectorList from '../VectorList/VectorList';
 import VectorTypeChooser from '../VectorTypeChooser/VectorTypeChooser';
 import styles from './VectorForm.module.css';
 
-interface VectorFormProps {
+export interface VectorFormProps {
   onCalculate?: (
     vectorType: VectorType,
     orthonormalize: boolean,
@@ -25,7 +25,7 @@ const weightedDotProduct = (factor: number, a: number[], b: number[]) => {
 
 const dotProduct = (a: number[], b: number[]) => weightedDotProduct(1, a, b);
 
-const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
+const VectorForm = ({ onCalculate }: VectorFormProps) => {
   const [vectorType, setVectorType] = useState(VectorType.REGULAR);
   const [orthonormalize, setOrthonormalize] = useState(true);
   const [innerProduct, setInnerProduct] = useState(

@@ -1,15 +1,15 @@
-import { Children, FC, useCallback } from 'react';
+import { Children, useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import VectorType from '../../../vector/vector-type';
 import VectorInput from '../VectorEntry/VectorEntry';
 
-interface VectorListProps {
+export interface VectorListProps {
   vectorType: VectorType;
   onChange?: (vectors: string[]) => void;
 }
 
-const VectorList: FC<VectorListProps> = ({ vectorType, onChange }) => {
+const VectorList = ({ vectorType, onChange }: VectorListProps) => {
   const [vectors, setVectors] = useState<string[]>([]);
 
   useEffect(() => {

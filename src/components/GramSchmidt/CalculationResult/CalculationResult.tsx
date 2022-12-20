@@ -1,4 +1,4 @@
-import { Children, FC, ReactFragment } from 'react';
+import { Children, ReactFragment } from 'react';
 import VectorType from '../../../vector/vector-type';
 import PolynomialVector from '../PolynomialVector/PolynomialVector';
 import TupleVector from '../TupleVector/TupleVector';
@@ -8,10 +8,7 @@ export interface CalculationResultProps {
   vectors: unknown[];
 }
 
-const CalculationResult: FC<CalculationResultProps> = ({
-  vectorType,
-  vectors,
-}) => {
+const CalculationResult = ({ vectorType, vectors }: CalculationResultProps) => {
   let vectorFragments: ReactFragment;
   switch (vectorType) {
     case VectorType.REGULAR: {

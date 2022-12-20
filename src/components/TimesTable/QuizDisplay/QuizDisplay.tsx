@@ -1,14 +1,14 @@
-import { FC, useCallback, useState } from 'react';
-import { Coordinate } from '../../../types/Coordinate';
+import { useCallback, useState } from 'react';
+import { Coordinate } from '../../../types/coordinate';
 import QuizGame from '../QuizGame/QuizGame';
 import QuizResultTableVisual from '../QuizResultTableVisual/QuizResultTableVisual';
 
-interface QuizDisplayProps {
+export interface QuizDisplayProps {
   minNumber: number;
   maxNumber: number;
 }
 
-const QuizDisplay: FC<QuizDisplayProps> = ({ minNumber, maxNumber }) => {
+const QuizDisplay = ({ minNumber, maxNumber }: QuizDisplayProps) => {
   const createEmptyAnswers = useCallback(() => {
     return Array(maxNumber - minNumber + 1).fill(
       Array(maxNumber - minNumber + 1).fill(0)

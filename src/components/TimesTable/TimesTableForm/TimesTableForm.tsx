@@ -1,15 +1,15 @@
-import { useState, useCallback, FormEvent, FC } from 'react';
+import { useState, useCallback, FormEvent } from 'react';
 import BoundChooser from '../BoundChooser/BoundChooser';
 
-interface TimesTableFormProps {
+export interface TimesTableFormProps {
   onGenerateTable?: (minNumber: number, maxNumber: number) => void;
   onPlayGame?: (minNumber: number, maxNumber: number) => void;
 }
 
-const TimesTableForm: FC<TimesTableFormProps> = ({
+const TimesTableForm = ({
   onGenerateTable,
   onPlayGame,
-}) => {
+}: TimesTableFormProps) => {
   const [minNumber, setMinNumber] = useState(1);
   const [maxNumber, setMaxNumber] = useState(12);
 

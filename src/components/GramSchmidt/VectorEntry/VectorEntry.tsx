@@ -1,17 +1,13 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import VectorType from '../../../vector/vector-type';
 
-interface VectorInputProps {
+export interface VectorInputProps {
   vectorType: VectorType;
   onChange?: (newInput: string) => void;
   onDelete?: () => void;
 }
 
-const VectorInput: FC<VectorInputProps> = ({
-  vectorType,
-  onChange,
-  onDelete,
-}) => {
+const VectorInput = ({ vectorType, onChange, onDelete }: VectorInputProps) => {
   const onVectorChanged = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange!(e.currentTarget.value);

@@ -6,9 +6,14 @@ import QuizResultTableVisual from '../QuizResultTableVisual/QuizResultTableVisua
 export interface QuizDisplayProps {
   minNumber: number;
   maxNumber: number;
+  learnBound: number;
 }
 
-const QuizDisplay = ({ minNumber, maxNumber }: QuizDisplayProps) => {
+const QuizDisplay = ({
+  minNumber,
+  maxNumber,
+  learnBound,
+}: QuizDisplayProps) => {
   const createEmptyAnswers = useCallback(() => {
     return Array(maxNumber - minNumber + 1).fill(
       Array(maxNumber - minNumber + 1).fill(0)
@@ -46,6 +51,7 @@ const QuizDisplay = ({ minNumber, maxNumber }: QuizDisplayProps) => {
         <QuizGame
           minNumber={minNumber}
           maxNumber={maxNumber}
+          learnBound={learnBound}
           onAnswer={onAnswer}
         />
         <button type="button" onClick={goToResults}>

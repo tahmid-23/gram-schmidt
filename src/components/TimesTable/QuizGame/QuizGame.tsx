@@ -6,21 +6,34 @@ import styles from './QuizGame.module.css';
 export interface QuizGameProps {
   minNumber: number;
   maxNumber: number;
+  learnBound: number;
   onAnswer?: (coordinate: Coordinate, correct: boolean) => void;
 }
 
-function generateNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function generateNumber(min: number, max: number, learnBound: number) {
+  return (
+    Math.floor(Math.random() * (max - learnBound - min - learnBound + 1)) +
+    min +
+    learnBound
+  );
 }
 
-const QuizGame = ({ minNumber, maxNumber, onAnswer }: QuizGameProps) => {
-  const generateQuestion = useCallback(
-    () => [
-      generateNumber(minNumber, maxNumber),
-      generateNumber(minNumber, maxNumber),
-    ],
-    [maxNumber, minNumber]
-  );
+const QuizGame = ({
+  minNumber,
+  maxNumber,
+  learnBound,
+  onAnswer,
+}: QuizGameProps) => {
+  const generateQuestion = useCallback(() => {
+    if (learnBound >= maxNumber) {
+      return undefined;
+    }
+
+    return [
+      generateNumber(minNumber, maxNumber, learnBound),
+      generateNumber(minNumber, maxNumber, learnBound),
+    ];
+  }, [learnBound, maxNumber, minNumber]);
 
   const [question, refreshQuestion] = useGenerator(generateQuestion);
   const [answer, setAnswer] = useState<string>();
@@ -31,7 +44,7 @@ const QuizGame = ({ minNumber, maxNumber, onAnswer }: QuizGameProps) => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (!answer) {
+      if (!question || !answer) {
         return;
       }
 
@@ -49,6 +62,10 @@ const QuizGame = ({ minNumber, maxNumber, onAnswer }: QuizGameProps) => {
   const onChangeAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.currentTarget.value);
   }, []);
+
+  if (!question) {
+    return <p>You've mastered everything!</p>;
+  }
 
   return (
     <form onSubmit={onSubmitForm}>

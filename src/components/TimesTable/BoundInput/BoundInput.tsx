@@ -6,7 +6,7 @@ export interface BoundInputProps {
   max?: number;
   defaultBound: number;
   text: string;
-  onBoundChange: (newBound: number) => void;
+  onBoundChange?: (newBound: number) => void;
 }
 
 const BoundInput = ({
@@ -19,7 +19,7 @@ const BoundInput = ({
 }: BoundInputProps) => {
   const onInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      onBoundChange(Number(e.currentTarget.value));
+      onBoundChange?.(Number(e.currentTarget.value));
     },
     [onBoundChange]
   );

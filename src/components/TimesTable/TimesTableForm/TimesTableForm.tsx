@@ -2,8 +2,16 @@ import { useState, useCallback, FormEvent } from 'react';
 import BoundChooser from '../BoundChooser/BoundChooser';
 
 export interface TimesTableFormProps {
-  onGenerateTable?: (minNumber: number, maxNumber: number) => void;
-  onPlayGame?: (minNumber: number, maxNumber: number) => void;
+  onGenerateTable?: (
+    minNumber: number,
+    maxNumber: number,
+    learnBound: number
+  ) => void;
+  onPlayGame?: (
+    minNumber: number,
+    maxNumber: number,
+    learnBound: number
+  ) => void;
 }
 
 const TimesTableForm = ({
@@ -12,6 +20,7 @@ const TimesTableForm = ({
 }: TimesTableFormProps) => {
   const [minNumber, setMinNumber] = useState(1);
   const [maxNumber, setMaxNumber] = useState(12);
+  const [learnBound, setLearnBound] = useState(1);
 
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -26,16 +35,16 @@ const TimesTableForm = ({
 
       switch (submitterElement.name) {
         case 'generate-table': {
-          onGenerateTable?.(minNumber, maxNumber);
+          onGenerateTable?.(minNumber, maxNumber, learnBound);
           break;
         }
         case 'play-game': {
-          onPlayGame?.(minNumber, maxNumber);
+          onPlayGame?.(minNumber, maxNumber, learnBound);
           break;
         }
       }
     },
-    [onGenerateTable, onPlayGame, minNumber, maxNumber]
+    [onGenerateTable, onPlayGame, minNumber, maxNumber, learnBound]
   );
 
   return (
@@ -44,8 +53,10 @@ const TimesTableForm = ({
         <BoundChooser
           defaultMin={1}
           defaultMax={12}
+          defaultLearnBound={1}
           onSetMinNumber={setMinNumber}
           onSetMaxNumber={setMaxNumber}
+          onSetLearnBound={setLearnBound}
         />
         <button type="submit" name="generate-table">
           Generate Table

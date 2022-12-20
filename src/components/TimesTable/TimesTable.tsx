@@ -12,21 +12,24 @@ enum Mode {
 }
 
 const TimesTable = () => {
-  const [bounds, setBounds] = useState<[number, number]>();
+  const [bounds, setBounds] = useState<[number, number, number]>();
   const [mode, setMode] = useState<Mode>();
 
   const onGenerateTable = useCallback(
-    (minNumber: number, maxNumber: number) => {
-      setBounds([minNumber, maxNumber]);
+    (minNumber: number, maxNumber: number, learnBound: number) => {
+      setBounds([minNumber, maxNumber, learnBound]);
       setMode(Mode.TABLE);
     },
     []
   );
 
-  const onPlayGame = useCallback((minNumber: number, maxNumber: number) => {
-    setBounds([minNumber, maxNumber]);
-    setMode(Mode.GAME);
-  }, []);
+  const onPlayGame = useCallback(
+    (minNumber: number, maxNumber: number, learnBound: number) => {
+      setBounds([minNumber, maxNumber, learnBound]);
+      setMode(Mode.GAME);
+    },
+    []
+  );
 
   const getExtraContent = useCallback(() => {
     if (!bounds) {
@@ -42,7 +45,13 @@ const TimesTable = () => {
         break;
       }
       case Mode.GAME: {
-        content = <QuizDisplay minNumber={bounds[0]} maxNumber={bounds[1]} />;
+        content = (
+          <QuizDisplay
+            minNumber={bounds[0]}
+            maxNumber={bounds[1]}
+            learnBound={bounds[2]}
+          />
+        );
         break;
       }
     }

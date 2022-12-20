@@ -20,6 +20,8 @@ const QuizDisplay = ({
     );
   }, [minNumber, maxNumber]);
 
+  const [prevMinNumber, setPrevMinNumber] = useState(minNumber);
+  const [prevMaxNumber, setPrevMaxNumber] = useState(minNumber);
   const [showGame, setShowGame] = useState(true);
   const [answers, setAnswers] = useState<number[][]>(createEmptyAnswers());
 
@@ -44,6 +46,18 @@ const QuizDisplay = ({
     },
     [answers]
   );
+
+  const changedMin = minNumber !== prevMinNumber;
+  const changedMax = maxNumber !== prevMaxNumber;
+  if (changedMin || changedMax) {
+    setAnswers(createEmptyAnswers());
+    if (changedMin) {
+      setPrevMinNumber(minNumber);
+    }
+    if (changedMax) {
+      setPrevMaxNumber(maxNumber);
+    }
+  }
 
   if (showGame) {
     return (

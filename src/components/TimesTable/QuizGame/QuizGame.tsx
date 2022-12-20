@@ -33,6 +33,8 @@ const QuizGame = ({
     return [first, second];
   }, [learnBound, maxNumber, minNumber]);
 
+  const [prevMinNumber, setPrevMinNumber] = useState(minNumber);
+  const [prevMaxNumber, setPrevMaxNumber] = useState(minNumber);
   const [question, refreshQuestion] = useGenerator(generateQuestion);
   const [answer, setAnswer] = useState<string>();
   const [correct, setCorrect] = useState<boolean>();
@@ -60,6 +62,18 @@ const QuizGame = ({
   const onChangeAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.currentTarget.value);
   }, []);
+
+  const changedMin = minNumber !== prevMinNumber;
+  const changedMax = maxNumber !== prevMaxNumber;
+  if (changedMin || changedMax) {
+    refreshQuestion();
+    if (changedMin) {
+      setPrevMinNumber(minNumber);
+    }
+    if (changedMax) {
+      setPrevMaxNumber(maxNumber);
+    }
+  }
 
   if (!question) {
     return <p>You've mastered everything!</p>;

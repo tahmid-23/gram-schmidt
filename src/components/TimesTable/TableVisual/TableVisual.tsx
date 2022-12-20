@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { CSSProperties, FC } from 'react';
 import { Coordinate } from '../../../types/Coordinate';
 import styles from './TableVisual.module.css';
 
@@ -7,6 +7,7 @@ interface TableVisualProps {
   maxNumber: number;
   onExitTable?: () => void;
   getCellClassName?: (coordinate: Coordinate) => string | undefined;
+  getCellStyle?: (coordinate: Coordinate) => CSSProperties | undefined;
   onMouseDown?: (coordinate: Coordinate) => void;
   onMouseOver?: (coordinate: Coordinate) => void;
 }
@@ -16,6 +17,7 @@ const TableVisual: FC<TableVisualProps> = ({
   maxNumber,
   onExitTable,
   getCellClassName,
+  getCellStyle,
   onMouseDown,
   onMouseOver,
 }) => {
@@ -42,7 +44,8 @@ const TableVisual: FC<TableVisualProps> = ({
               return (
                 <td
                   key={indexB}
-                  className={getCellClassName && getCellClassName(coordinate)}
+                  className={getCellClassName?.(coordinate)}
+                  style={getCellStyle?.(coordinate)}
                   onMouseDown={onMouseDown && (() => onMouseDown(coordinate))}
                   onMouseOver={onMouseOver && (() => onMouseOver(coordinate))}
                 >

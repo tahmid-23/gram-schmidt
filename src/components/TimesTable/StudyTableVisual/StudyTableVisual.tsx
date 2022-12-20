@@ -13,7 +13,7 @@ const StudyTableVisual: FC<StudyTableVisualProps> = ({
   maxNumber,
 }) => {
   const [highlightCoordinate, setHighlightCoordinate] = useState<Coordinate>();
-  const [isFrozen, setIsFrozen] = useState<boolean>(false);
+  const [isFrozen, setIsFrozen] = useState(false);
 
   const onExitTable = useCallback(() => {
     if (!isFrozen) {

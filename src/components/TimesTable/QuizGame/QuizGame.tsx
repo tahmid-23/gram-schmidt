@@ -7,18 +7,20 @@ import {
   useState,
 } from 'react';
 import { useGenerator } from '../../../hooks/useGenerator';
+import { Coordinate } from '../../../types/Coordinate';
 import styles from './QuizGame.module.css';
 
 interface QuizGameProps {
   minNumber: number;
   maxNumber: number;
+  onAnswer?: (coordinate: Coordinate, correct: boolean) => void;
 }
 
 function generateNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const QuizGame: FC<QuizGameProps> = ({ minNumber, maxNumber }) => {
+const QuizGame: FC<QuizGameProps> = ({ minNumber, maxNumber, onAnswer }) => {
   const generateQuestion = useCallback(
     () => [
       generateNumber(minNumber, maxNumber),
@@ -40,10 +42,15 @@ const QuizGame: FC<QuizGameProps> = ({ minNumber, maxNumber }) => {
         return;
       }
 
-      setCorrect(Number(answer) === question[0] * question[1]);
+      const correct = Number(answer) === question[0] * question[1];
+      if (onAnswer) {
+        onAnswer([question[0] - minNumber, question[1] - minNumber], correct);
+      }
+      setCorrect(correct);
+      e.currentTarget.reset();
       refreshQuestion();
     },
-    [answer, question, refreshQuestion]
+    [answer, question, minNumber, onAnswer, refreshQuestion]
   );
 
   const onChangeAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) => {

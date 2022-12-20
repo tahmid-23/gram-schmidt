@@ -14,8 +14,8 @@ const BoundChooser: FC<BoundChooserProps> = ({
   onSetMinNumber,
   onSetMaxNumber,
 }) => {
-  const [minNumber, setMinNumber] = useState<number>(defaultMin);
-  const [maxNumber, setMaxNumber] = useState<number>(defaultMax);
+  const [minNumber, setMinNumber] = useState(defaultMin);
+  const [maxNumber, setMaxNumber] = useState(defaultMax);
   const minNumberId = useId(),
     maxNumberId = useId();
 

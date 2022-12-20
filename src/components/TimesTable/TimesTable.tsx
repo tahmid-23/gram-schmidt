@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 import Header from '../Header/Header';
 import QuickNavigation from '../QuickNavigation/QuickNavigation';
-import QuizGame from './QuizGame/QuizGame';
+import QuizDisplay from './QuizDisplay/QuizDisplay';
 import StudyTableVisual from './StudyTableVisual/StudyTableVisual';
 import TimesTableForm from './TimesTableForm/TimesTableForm';
 
@@ -42,7 +42,7 @@ const TimesTable = () => {
         break;
       }
       case Mode.GAME: {
-        content = <QuizGame minNumber={bounds[0]} maxNumber={bounds[1]} />;
+        content = <QuizDisplay minNumber={bounds[0]} maxNumber={bounds[1]} />;
         break;
       }
     }

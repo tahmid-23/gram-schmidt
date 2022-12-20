@@ -1,4 +1,4 @@
-import { FC, FormEvent, useCallback, useId, useState } from 'react';
+import { FC, FormEvent, useCallback, useEffect, useId, useState } from 'react';
 import InnerProduct from '../../../vector/inner-product';
 import VectorType from '../../../vector/vector-type';
 import InnerProductChooser, {
@@ -26,11 +26,14 @@ const weightedDotProduct = (factor: number, a: number[], b: number[]) => {
 const dotProduct = (a: number[], b: number[]) => weightedDotProduct(1, a, b);
 
 const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
-  const [vectorType, setVectorType] = useState<VectorType>(VectorType.REGULAR);
-  const [orthonormalize, setOrthonormalize] = useState<boolean>(true);
-  const [innerProduct, setInnerProduct] = useState<InnerProduct<unknown>>(
+  const [vectorType, setVectorType] = useState(VectorType.REGULAR);
+  const [orthonormalize, setOrthonormalize] = useState(true);
+  const [innerProduct, setInnerProduct] = useState(
     () => dotProduct as InnerProduct<unknown>
   );
+  const [nameIPRecord, setNameIPRecord] = useState<
+    Record<string, InnerProductEntry>
+  >({});
   const [vectors, setVectors] = useState<string[]>([]);
   const orthonormalizeId = useId();
 
@@ -42,23 +45,24 @@ const VectorForm: FC<VectorFormProps> = ({ onCalculate }) => {
     [innerProduct, onCalculate, orthonormalize, vectorType, vectors]
   );
 
-  let nameIPRecord: Record<string, InnerProductEntry>;
-  switch (vectorType) {
-    case VectorType.REGULAR: {
-      nameIPRecord = {
-        dot: {
-          name: 'Dot Product',
-          display: null,
-          onSelect: () =>
-            setInnerProduct(() => dotProduct as InnerProduct<unknown>),
-        },
-      };
-      break;
+  useEffect(() => {
+    switch (vectorType) {
+      case VectorType.REGULAR: {
+        setNameIPRecord({
+          dot: {
+            name: 'Dot Product',
+            display: null,
+            onSelect: () =>
+              setInnerProduct(() => dotProduct as InnerProduct<unknown>),
+          },
+        });
+        break;
+      }
+      case VectorType.POLYNOMIAL: {
+        setNameIPRecord({});
+      }
     }
-    case VectorType.POLYNOMIAL: {
-      nameIPRecord = {};
-    }
-  }
+  }, [vectorType]);
 
   return (
     <>

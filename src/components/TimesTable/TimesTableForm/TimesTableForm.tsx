@@ -10,8 +10,8 @@ const TimesTableForm: FC<TimesTableFormProps> = ({
   onGenerateTable,
   onPlayGame,
 }) => {
-  const [minNumber, setMinNumber] = useState<number>(1);
-  const [maxNumber, setMaxNumber] = useState<number>(12);
+  const [minNumber, setMinNumber] = useState(1);
+  const [maxNumber, setMaxNumber] = useState(12);
 
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {

@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
+import { FormEvent, useCallback, useId, useState } from 'react';
 import InnerProduct from '../../../vector/inner-product';
 import VectorType from '../../../vector/vector-type';
 import InnerProductChooser, {
@@ -45,7 +45,8 @@ const VectorForm = ({ onCalculate }: VectorFormProps) => {
     [innerProduct, onCalculate, orthonormalize, vectorType, vectors]
   );
 
-  useEffect(() => {
+  const onChooseVectorType = (vectorType: VectorType) => {
+    setVectorType(vectorType);
     switch (vectorType) {
       case VectorType.REGULAR: {
         setNameIPRecord({
@@ -62,13 +63,13 @@ const VectorForm = ({ onCalculate }: VectorFormProps) => {
         setNameIPRecord({});
       }
     }
-  }, [vectorType]);
+  };
 
   return (
     <>
       <form onSubmit={onSubmitForm}>
         <div>
-          <VectorTypeChooser onChange={setVectorType} />
+          <VectorTypeChooser onChange={onChooseVectorType} />
           &nbsp;
           <InnerProductChooser nameIPRecord={nameIPRecord} />
           &nbsp;

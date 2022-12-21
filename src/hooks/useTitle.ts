@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export const useTitle = (title: string) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.title = title;
   }, [title]);
 };

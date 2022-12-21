@@ -1,4 +1,4 @@
-import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import { CSSProperties, useCallback, useMemo } from 'react';
 import { Coordinate } from '../../../types/coordinate';
 import TableVisual from '../TableVisual/TableVisual';
 
@@ -13,12 +13,10 @@ const QuizResultTableVisual = ({
   maxNumber,
   results,
 }: QuizResultTableVisualProps) => {
-  const [accuracyBounds, setAccuracyBounds] = useState<[number, number]>();
-
-  useEffect(() => {
+  const accuracyBounds = useMemo(() => {
     const minAccuracy = Math.min(...results.map((row) => Math.min(...row)));
     const maxAccuracy = Math.max(...results.map((row) => Math.max(...row)));
-    setAccuracyBounds([minAccuracy, maxAccuracy]);
+    return [minAccuracy, maxAccuracy];
   }, [results]);
 
   const getCellStyle = useCallback(
@@ -43,7 +41,7 @@ const QuizResultTableVisual = ({
         backgroundColor: `hsl(calc(${lerp} * 120), 100%, 50%)`,
       };
     },
-    [results, accuracyBounds]
+    [accuracyBounds, results]
   );
 
   return (
